@@ -1,11 +1,13 @@
 import Utils.Constants;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
@@ -38,13 +40,18 @@ public class BaseClass {
     }
 
     @AfterMethod
-    public void afterMethodMethod() {
+    public void afterMethodMethod(ITestResult result) {
+        if(result.getStatus()==ITestResult.SUCCESS){
+            logger.log(Status.PASS, "Testcase " +result.getMethod().getMethodName()+ " Passed");
+        }else{
+            logger.log(Status.FAIL, "Testcase " +result.getMethod().getMethodName()+ " Failed");
+        }
         driver.quit();
     }
 
     @AfterTest
     public void afterTestMethod() {
-
+        extent.flush();
     }
 
     public void setUpDriver(String browserName) {
