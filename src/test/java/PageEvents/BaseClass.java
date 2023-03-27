@@ -1,3 +1,5 @@
+package PageEvents;
+
 import Utils.Constants;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
