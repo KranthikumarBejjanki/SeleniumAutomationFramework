@@ -4,7 +4,7 @@
     <test name="Automation Testing">
         <parameter name="BrowserName" value="chrome"></parameter>
         <classes>
-            <class name="FirstTest"></class>
+            <class name="TestCases.FirstTest"></class>
         </classes>
     </test>
 </suite>
