@@ -6,12 +6,14 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.io.File;
 import java.lang.reflect.Method;
 
 public class BaseClass {
@@ -22,14 +24,15 @@ public class BaseClass {
 
     @BeforeTest
     public void beforeTestMethod() {
-        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "Reports" + "Automation Result Report");
+        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + File.separator+ "Reports" +File.separator+ "Automation Result Report.html");
         htmlReporter.config().setEncoding("utf-8");
         htmlReporter.config().setDocumentTitle("Automation Report");
         htmlReporter.config().setReportName("Automation Test Results");
         htmlReporter.config().setTheme(Theme.DARK);
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
-        extent.setSystemInfo("Automation Testers : Sumana", "Kranthi");
+        extent.setSystemInfo("Environment", "Local");
+        extent.setSystemInfo("Automation Testers", "Kranthi & Sumana");
     }
 
     @BeforeMethod
@@ -57,14 +60,14 @@ public class BaseClass {
     }
 
     public void setUpDriver(String browserName) {
-        if (browserName.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "Drivers" + "chromedriver.exe");
+        if (browserName.equalsIgnoreCase("Chrome")) {
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + File.separator + "Drivers" + File.separator +"chromedriver.exe");
             driver = new ChromeDriver();
-        } else if (browserName.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "Drivers" + "geckodriver.exe");
+        } else if (browserName.equalsIgnoreCase("Firefox")) {
+            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + File.separator +"Drivers" + File.separator +"geckodriver.exe");
             driver = new FirefoxDriver();
         } else {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "Drivers" + "chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + File.separator +"Drivers" + File.separator +"chromedriver.exe");
             driver = new ChromeDriver();
         }
     }
