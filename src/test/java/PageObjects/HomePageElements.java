@@ -1,5 +1,5 @@
 package PageObjects;
 
 public interface HomePageElements {
-    String signinButton = "//a[text()='Sign in securely']";
+    String signInButton = "//a[text()='Sign in securely']";
 }

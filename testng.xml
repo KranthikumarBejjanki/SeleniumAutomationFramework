@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Testing Amazon Website">
     <test name="Automation Testing">
-        <parameter name="BrowserName" value="chrome"></parameter>
+        <parameter name="browserName" value="Chrome"></parameter>
         <classes>
             <class name="TestCases.FirstTest"></class>
         </classes>
