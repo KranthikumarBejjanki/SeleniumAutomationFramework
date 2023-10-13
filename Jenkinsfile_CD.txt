@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build and Test') {
+            steps {
+                sh 'mvn clean package'
+                sh 'mvn test'
+                sh 'mvn verify'
+            }
+        }
+
+        stage('Deploy to Production') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
+            steps {
+                // Perform your deployment steps to the production environment here
+                sh 'ssh user@production-server "cd /path/to/app && ./deploy.sh"'
+            }
+        }
+    }
+
+    post {
+        success {
+            slackSend color: 'good', message: "Deployment to production successful"
+        }
+        failure {
+            slackSend color: 'danger', message: "Deployment to production failed"
+        }
+    }
+}
